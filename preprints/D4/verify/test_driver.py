@@ -44,14 +44,6 @@ class DriverChecks(unittest.TestCase):
             with self.assertRaises(ValueError):
                 driver.census_groups(altered)
 
-    def test_axiom_report_must_be_complete_and_allowed(self):
-        expected = ["D4Bound.d4_density_bound"]
-        good = "'D4Bound.d4_density_bound' depends on axioms: [propext, Classical.choice, Quot.sound]"
-        self.assertEqual(set(driver.audit_axioms(good, expected)), set(expected))
-        for text in ("", good.replace("Quot.sound", "sorryAx"), good.replace("Quot.sound", "Lean.ofReduceBool")):
-            with self.assertRaises(ValueError):
-                driver.audit_axioms(text, expected)
-
     def test_optimized_interpreter_rejected_before_output(self):
         with tempfile.TemporaryDirectory() as tmp:
             out = Path(tmp) / "must-not-exist"
@@ -60,12 +52,6 @@ class DriverChecks(unittest.TestCase):
             self.assertNotEqual(run.returncode, 0)
             self.assertIn("disables assertions", run.stderr)
             self.assertFalse(out.exists())
-
-    def test_nonlean_driver_has_no_lean_runtime_dependency(self):
-        source = Path(driver.__file__).read_text()
-        self.assertNotIn("check_lean_inputs.py", source)
-        self.assertNotIn("gen_scalar.py", source)
-        self.assertNotIn("args.lean", source)
 
     def test_export_manifests_are_current(self):
         self.assertGreater(driver.check_export_manifests(), 200)

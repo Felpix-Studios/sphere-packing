@@ -7,14 +7,13 @@
     "verify/stage1_v7/CHANGES.md",
     "verify/stage5_kernelbox/negative_controls.py",
     "verify/stage5_kernelbox/MANIFEST.json",
-    "verify/stage5_kernelbox/CHANGES.md",
-    "lean/README.md"
+    "verify/stage5_kernelbox/CHANGES.md"
   ],
   "mathematical_checker_or_data_changes": false,
   "explained_exceptions": {
     "verify/stage1_v7/run.py": "ignore non-executable Finder metadata; mathematical checks unchanged",
     "verify/stage5_kernelbox/negative_controls.py": "isolate copies and reject reused output directories; controls rerun separately",
     "manifests": "bind the documented wrapper changes and restored written proof",
-    "documentation": "current dependency map, Lean component inventory and reproducibility updates"
+    "documentation": "current non-Lean dependency map, projected-code replay and reproducibility updates; the unreleased formalization is excluded"
   }
 }

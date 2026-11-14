@@ -15,7 +15,7 @@ Modes:
   quick  skips the 112 branch subdivisions of stage 1 (it still reruns every exact check
          and the pair pieces); stage 2 then uses the committed stage 1 values.
 Two exact kernel identity checks also run in both modes.  The Lean formalization is
-a separate project and is deliberately not imported by this driver.
+unreleased and is deliberately not imported by this driver.
 
 Exit 0 means every stage passed and the final inequality holds. Anything else is failure.
 """
@@ -24,7 +24,6 @@ from pathlib import Path
 import argparse
 import json
 import os
-import re
 import subprocess
 import sys
 import time
@@ -34,7 +33,6 @@ D4 = Path(__file__).resolve().parents[1]
 V = D4 / "verify"
 THRESHOLD = Q(629521681653, 10**12)
 GRAPH_SAVING = Q(3, 8000000)
-ALLOWED_AXIOMS = {"propext", "Classical.choice", "Quot.sound"}
 
 
 def exact(value):
@@ -64,22 +62,6 @@ def census_groups(profile):
     if set(groups) != expected:
         raise ValueError(f"census group domain differs: missing={expected-set(groups)}, extra={set(groups)-expected}")
     return groups
-
-
-def audit_axioms(output, expected):
-    rows = re.findall(r"'([^']+)' depends on axioms: \[(.*?)\]", output, re.S)
-    found = {}
-    for name, body in rows:
-        axioms = {a.strip() for a in body.split(",") if a.strip()}
-        if axioms - ALLOWED_AXIOMS:
-            raise ValueError(f"unapproved axioms for {name}: {axioms-ALLOWED_AXIOMS}")
-        found[name] = sorted(axioms)
-    # Lean also reports a theorem that has no axioms in this form.
-    for name in re.findall(r"'([^']+)' does not depend on any axioms", output):
-        found[name] = []
-    if set(found) != set(expected):
-        raise ValueError(f"axiom report missing/unexpected declarations: {set(expected)^set(found)}")
-    return found
 
 
 def check_export_manifests():
@@ -140,6 +122,8 @@ def main():
     ap.add_argument("--mode", choices=["quick", "full"], default="full")
     ap.add_argument("--workers", type=int, choices=range(1, 5), default=2, help="workers for stages 1 and 5 (2 needs about 1 GB)")
     args = ap.parse_args()
+    if sys.version_info < (3, 12):
+        ap.error("Python 3.12 or later is required because NumPy 2.5.2 is pinned")
     if not __debug__ or os.environ.get("PYTHONOPTIMIZE"):
         ap.error("optimized Python disables assertions in inherited checkers; unset PYTHONOPTIMIZE and omit -O")
     out = args.out.expanduser().resolve()

@@ -1,6 +1,6 @@
 """Exact local graph certificates; never a global sphere-packing acceptance.
 
-Run with Python 3.10+ (no third-party dependencies). Every off-diagonal
+Run with Python 3.12+ (no third-party dependencies). Every off-diagonal
 angular interval is proved by rational Bernstein subdivision. Harmonic
 matrices are reconstructed from explicit positive rank-one rays.
 """

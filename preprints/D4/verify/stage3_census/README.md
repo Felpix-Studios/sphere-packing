@@ -47,7 +47,7 @@ stage checks its inputs and recomputes the arithmetic.
 
 ## Command
 
-From this folder, with Python 3.11 or later and `numpy` (see
+From this folder, with Python 3.12 or later and `numpy` (see
 `requirements.txt`):
 
 ```

@@ -53,7 +53,7 @@ are `first_containing_radius_profile` in `DIR/LOCAL_ENUMERATION.json`.
 
 ## Command
 
-From this folder, with Python 3.11 or later and `numpy` (see
+From this folder, with Python 3.12 or later and `numpy` (see
 `requirements.txt`):
 
 ```

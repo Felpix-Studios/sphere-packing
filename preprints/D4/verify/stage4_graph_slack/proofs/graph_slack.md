@@ -57,16 +57,25 @@ The derivative of Q in h_i has the sign of rho h_i - h_j, which is at most rho -
 
     x_i . x_j <= Q(7/8, 7/8) = (41/49 - 49/64)/(1 - 49/64) = 223/735.
 
-## Step 4. Nine unit vectors in R^3 (cited)
+## Step 4. Nine unit vectors in R^3 (exact certificate)
 
-CITED. Schütte and van der Waerden proved phi_3(9) = arccos(1/3). Here phi_3(M) is the largest possible minimum angular distance among M points on the unit sphere S^2. So any nine unit vectors in R^3 contain a pair with inner product at least 1/3.
+The shipped certificate `data/projected_eight.json` is a nonnegative
+combination of normalized Legendre polynomials. The checker
+`src/verify_projected_eight.py` rebuilds those polynomials by their exact
+recurrence, maps `[-1,223/735]` to `[0,1]`, and proves the sign of the
+negative polynomial with rational Bernstein subdivision. It checks the
+endpoint separately. The exact objective is
 
-- Original: K. Schütte and B. L. van der Waerden, Auf welcher Kugel haben 5, 6, 7, 8 oder 9 Punkte mit Mindestabstand Eins Platz?, Math. Ann. 123 (1951), 96-124. We did not open this article. Its title uses chordal distance 1, a different normalization. We do not use that form.
-- Statement used: A. Barg and O. R. Musin, Codes in spherical caps, Advances in Mathematics of Communications 1 (2007), no. 1, 131-149, arXiv:math/0606734v2. Page 9 of the arXiv version, item 2 ("Let n = 4"), states "Schütte and van der Waerden [22] proved that ... phi_3(9) = arccos(1/3) ≈ 70.53°". Page 8 defines phi_n(M) as the largest angular separation of an M-point code on S^(n-1). Section 2 works on the unit sphere, so the cosine of the angular distance is the inner product.
+    89804130521/9999900000 < 9.
+
+The addition formula therefore gives at most eight unit vectors in R^3 with
+all pairwise inner products at most `223/735`. The classical Schütte--van der
+Waerden nine-point theorem remains a cited alternative, but is not required by
+this replay.
 
 ## Step 5. Degree at most 8, edges at most 1208
 
-Nine neighbours of one vertex would give nine unit vectors x_i in R^3 with all inner products at most 223/735. But 1/3 - 223/735 = 22/735 > 0, so Step 4 forbids this. Every vertex has degree at most 8 (or at most 1 in the case of Step 3 with h = 1). The ordered edge count is the degree sum, so
+Nine neighbours of one vertex would give nine unit vectors x_i in R^3 with all inner products at most 223/735. The exact certificate in Step 4 forbids this. The geometric gap `1/3 - 223/735 = 22/735 > 0` is also checked by `gap_check.py`. Every vertex has degree at most 8 (or at most 1 in the case of Step 3 with h = 1). The ordered edge count is the degree sum, so
 
     e <= 151 * 8 = 1208.
 
@@ -94,4 +103,4 @@ becomes U_raw - a/8 - 3/8000000. Equivalently, the capacity 1358 in U_raw may be
 
 - Steps 1, 3, 5, 6 and 7: written proof plus exact rational checks in `run.py` and `src/gap_check.py`.
 - Step 2: exact certificate, rechecked by `src/verify_annular_count_151.py` (no floating point).
-- Step 4: CITED. The 1951 proof is not rerun here.
+- Step 4: exact rational Legendre/Bernstein replay from `data/projected_eight.json`; the classical theorem is attribution only.

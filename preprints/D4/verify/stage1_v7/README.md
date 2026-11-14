@@ -14,8 +14,8 @@ and `run.py` checks that equality.
 
 ## Command
 
-From this folder, with Python (tested with CPython 3.14.6; the original
-producer used 3.12), the packages in `requirements.txt` and a C++20 compiler:
+From this folder, with CPython 3.12 or later, the packages in
+`requirements.txt` and a C++20 compiler:
 
 ```
 python3 -m pip install -r requirements.txt

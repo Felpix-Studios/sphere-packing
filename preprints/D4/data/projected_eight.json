@@ -35,7 +35,7 @@
   "discovery": {
     "method": "scipy linprog HiGHS; degree32,8001 equispaced samples; only candidate search",
     "sampled_objective": 8.980423052141987,
-    "script": "../lean/scripts/search_projected_eight.py"
+    "script": "unreleased numerical-search provenance; not used by the replay"
   },
-  "proof": "lean/D4Bound/ProjectedEightCert.lean checks exact rational sign and objective from first principles."
+  "proof": "verify/stage4_graph_slack/src/verify_projected_eight.py checks exact rational sign and objective from first principles."
 }

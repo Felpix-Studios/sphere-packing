@@ -20,11 +20,11 @@ In full mode, exit 0 and the last line `PASS: every sphere packing in R^4 has de
 | `--mode full` | nothing | base five stages about 31 minutes; identity checks add about 10 minutes | about 1 GB |
 | `--mode quick` | the 112 triangle subdivisions of stage 1; stage 2 then takes the committed stage 1 values | base stages about 9 minutes, plus identity checks | about 0.3 GB |
 
-`--workers 4` speeds up stages 1 and 5 and needs about 2 GB. The integrated independent comparison uses one worker. The Lean formalization has a separate entry point and is deliberately not called by `verify_all.py`; it is not a prerequisite for this replay.
+`--workers 4` speeds up stages 1 and 5 and needs about 2 GB. The integrated independent comparison uses one worker. The Lean formalization is unreleased and is not a prerequisite for this replay; see [`../FORMALIZATION_STATUS.md`](../FORMALIZATION_STATUS.md).
 
 **Quick mode does not freshly verify the global theorem.** Its final message and `SUMMARY.json` explicitly mark the omitted sign replay. Do not use `-O` or `PYTHONOPTIMIZE`; inherited checks use assertions.
 
-You need Python 3.10 or later, numpy and python-flint (versions in `requirements.txt`), and a C++20 compiler (`clang++` or `g++`) for stage 1. The stage READMEs give the versions used for the recorded runs.
+You need Python 3.12 or later, numpy and python-flint (versions in `requirements.txt`), and a C++20 compiler (`clang++` or `g++`) for stage 1. The stage READMEs give the versions used for the recorded runs. NumPy 2.5.2 is pinned, so older Python interpreters are unsupported.
 
 ## The stages
 
@@ -51,9 +51,15 @@ The independent code is separate arithmetic/assembly code, but its author inspec
 
 ## What is cited, proved in writing, or trusted
 
-[PROOF_DEPENDENCIES.md](../PROOF_DEPENDENCIES.md) records the separate Lean dependency map. For the non-Lean proof, the finite certificate obligations are discharged by the five stage drivers, the independent kernel reconstruction, and the exact kernel link; the arbitrary-packing transfer is the written theorem cited above.
+[PROOF_DEPENDENCIES.md](../PROOF_DEPENDENCIES.md) records the dependency map for the available proof. The finite certificate obligations are discharged by the five stage drivers, the independent kernel reconstruction, and the exact kernel link; the arbitrary-packing transfer is the written theorem cited above.
 
-The graph proof uses an exact certificate for the sufficient bound `A(3,223/735) ≤ 8`, replacing its former reliance on the cited nine-point theorem. The classical references remain attribution and an alternative written route. The component identities and allocation arguments used by the non-Lean proof are documented in the stage proof files and checked by the stage drivers.
+The graph proof uses the exact certificate in `../data/projected_eight.json`.
+Stage 4 reconstructs its Legendre polynomial and proves the sign on the entire
+interval `[-1,223/735]` with rational Bernstein subdivision, then derives
+`A(3,223/735) <= 8` from the objective. The classical nine-point references
+remain attribution and an alternative written route. The component identities
+and allocation arguments used by the proof are documented in the stage proof
+files and checked by the stage drivers.
 
 The computational trust base includes Python integer/rational arithmetic, FLINT exact polynomials, Arb outward-rounded balls, and the C++20 subdivision engine compiled from source during each run. Symbolic adapters translate the documented nonpolynomial functions; they are not a formal semantics proof of the Python code. The stage-5 interval lower-envelope argument remains in [kernel_box_method.md](stage5_kernelbox/proofs/kernel_box_method.md).
 
@@ -67,4 +73,7 @@ python3 verify/stage5_kernelbox/negative_controls.py --work /tmp/d4-box-controls
 
 The kernel-link controls run inside its normal command. The independent controls reject incomplete coverage, perturbed coefficients and malformed exact inputs. The driver tests reject fractional/float counts, duplicate or missing groups, stale manifests, inexact floors, and optimized Python. Failure controls test rejection behavior; they do not establish a density bound.
 
-[The release review](../REVIEW.md) distinguishes the earlier passing certificate replay/build from the current expanded Lean project, whose final clean build and full spherical sign-tree replay in Lean remain pending. It records actual commands, results and remaining trust assumptions. Hash manifests identify exported artifacts; hashes alone are not mathematical verification.
+[The release review](../REVIEW.md) records the available replay, remaining
+trust assumptions, and the boundary between exact checks and written proofs.
+Hash manifests identify exported artifacts; hashes alone are not mathematical
+verification.

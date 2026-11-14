@@ -3,7 +3,9 @@
 Runs, each as a child process (nonzero exit, timeout or missing output is FAIL):
   1 src/verify_annular_count_151.py  exact degree-20 polynomial and Bernstein sign
     proof: at most 151 neighbours with radii in [33/28, 7/4].
-  2 src/gap_check.py  Q(7/8,7/8) = 223/735 < 1/3, 7/8 > 41/49, 151*8 = 1208,
+  2 src/verify_projected_eight.py  exact Legendre polynomial and Bernstein sign
+    proof: at most 8 projected neighbours on the full interval [-1, 223/735].
+  3 src/gap_check.py  Q(7/8,7/8) = 223/735, 7/8 > 41/49, 151*8 = 1208,
     (1358-1208)/(8*50000000) = 3/8000000.
 Then this script rechecks every exact step itself, including the corner
 cosines and the place of the graph charge in U_raw, from data/v7/origin.json,
@@ -84,7 +86,8 @@ def main():
         census_file, acc_file = upstream(args.census, args.stage2)
         res["census_file"] = str(census_file); res["stage2_file"] = str(acc_file)
         cert = SRC / "annular_count_151_certificate.json"
-        inputs = [cert, DATA / "v7/origin.json", DATA / "v7/graph_energies.json", census_file, acc_file]
+        projected = DATA / "projected_eight.json"
+        inputs = [cert, projected, DATA / "v7/origin.json", DATA / "v7/graph_energies.json", census_file, acc_file]
         res["inputs"] = {str(p.relative_to(PKG)) if p.is_relative_to(PKG) else str(p): sha(p) for p in inputs}
 
         # 1 the 151-neighbour count, recomputed from the polynomial certificate
@@ -94,11 +97,21 @@ def main():
         sp = a151["whole_interval_sign_proof"]
         (out / "annular_count_151.json").write_text(json.dumps(a151, indent=1) + "\n")
 
-        # 2 the original exact gap script
+        # 2 the exact projected S^2 code certificate
+        projected_result = json.loads(child(
+            [str(SRC / "verify_projected_eight.py"), str(projected)],
+            log, "projected_eight"))
+        assert projected_result["status"] == "EXACT_PROJECTED_EIGHT_PASS"
+        assert projected_result["count_bound"] == 8
+        assert Q(projected_result["cutoff"]) == Q(223, 735)
+        assert Q(projected_result["objective"]) < 9
+        (out / "projected_eight.json").write_text(json.dumps(projected_result, indent=1) + "\n")
+
+        # 3 the exact geometric gap script
         gap = child([str(SRC / "gap_check.py")], log, "gap_check").split()
         assert gap == ["Q(7/8,7/8)=223/735", "gap=22/735", "7/8-41/49=15/392", "ordered=1208", "conditional_saving=3/8000000"], gap
 
-        # 3 every exact step again, here
+        # 4 every exact geometric step again, here
         L, R = Q(33, 28), Q(7, 4)
         corners = dict(LL=h(L, L), LR=h(L, R), RR=h(R, R))
         assert corners == dict(LL=Q(697, 1089), LR=Q(41, 49), RR=Q(41, 49))
@@ -108,13 +121,13 @@ def main():
         assert Qbb == Q(223, 735) and Q(1, 3) - Qbb == Q(22, 735) > 0
         assert rho - beta < 0                                   # dQ/dh_i has numerator rho h_i - h_j <= rho - beta < 0
         assert beta > rho                                       # zero-projection vertex has degree <= 1
-        degree_cap = 8                                          # nine unit vectors in R^3 force a cosine >= 1/3 (cited)
+        degree_cap = projected_result["count_bound"]
         edges = 151 * degree_cap
         assert edges == 1208
         # selected edges are exterior: |y-z|^2 >= 2 L^2 (1 + 7/8) > (7/4)^2
         assert 2 * L * L * (1 + beta) == Q(16335, 3136) > Q(49, 16)
 
-        # 4 where the graph charge sits in the objective
+        # 5 where the graph charge sits in the objective
         origin = json.loads((DATA / "v7/origin.json").read_text())
         graphs = json.loads((DATA / "v7/graph_energies.json").read_text())
         w = list(map(Q, graphs["weights"]))
@@ -130,13 +143,14 @@ def main():
         assert saving == Q(3, 8000000) == Q(census["graph_saving"])
         assert Q(census["exact_objective"]) == U_raw - Q(census["new_beta"]) / 8 - saving
         res.update(status="PASS", annular_count=151, exact_count_upper=a151["exact_count_upper"],
+                   projected_eight=projected_result,
                    annular_polynomial_degree=20, bernstein_nodes=sp["nodes"], bernstein_leaves=sp["leaves"],
                    bernstein_depth=sp["depth"], corner_cosines={k: str(v) for k, v in corners.items()},
                    rho=str(rho), beta=str(beta), projected_cosine_max=str(Qbb), gap_to_one_third=str(Q(1, 3) - Qbb),
                    degree_cap=degree_cap, ordered_edge_capacity=edges, old_capacity=1358,
                    broad_graph_weight=str(w[2]), graph_origin_charge=str(charge), U_raw=str(U_raw),
                    slack_in_energy=str(w[2] * (1358 - edges)), density_saving=str(saving),
-                   cited="Schutte and van der Waerden (1951), phi_3(9) = arccos(1/3), as stated by Barg and Musin (2007)")
+                   classical_nine_point_theorem="historical alternative; not used by this replay")
     except Exception as e:  # fail closed
         res["status"] = "FAIL"; res["error"] = repr(e)[:3000]
     res["children"] = log

@@ -22,6 +22,12 @@ The `status` field in `v7/origin.json` is a historical label from the producer. 
 
 The stage 1 checker recomputes the signs and the raw objective from `v7/`. Stages 2 and 3 recompute the count census and reproduce `census_floors.json` exactly. Stage 5 re-evaluates every leaf of the two `kernel-box` trees and reproduces `ledger.json` exactly. See [`../verify/README.md`](../verify/README.md).
 
-## Lean
+## Projected-code certificate
 
-The Lean proof is in [`../lean`](../lean), a standalone Lake project. Its main theorem bounds the upper density of every unit packing in ℝ⁴. The scalar function, its Fourier transform and the passage from the finite inequality to density are all proved in Lean. The facts about the kernel `K` that the `verify` programs certify enter as named hypotheses. [`../lean/README.md`](../lean/README.md) gives the theorem, each hypothesis and the program that certifies it. `../lean/scripts/gen_scalar.py --check` confirms that the Lean scalar data equals `v7/scalar.json`. `../lean/scripts/check_lean_inputs.py` confirms that the Lean ledger constants are outward roundings of `census_floors.json`.
+`projected_eight.json` supplies the exact nonnegative Legendre coefficients
+used for the projected code bound in stage 4. The replay program
+`verify/stage4_graph_slack/src/verify_projected_eight.py` reconstructs the
+polynomial, checks its sign on the complete interval
+`[-1, 223/735]` by rational Bernstein subdivision, and verifies the objective
+is strictly below nine. Its numerical search provenance is retained in the
+JSON as history only; it is not used as proof input.
