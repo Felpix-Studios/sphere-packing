@@ -11,11 +11,11 @@
 *.swo
 *~
 
-# LaTeX sources and intermediates; keep the published PDFs
-*.tex
+# LaTeX intermediates; publish the paper source alongside the PDF
+# Scope .log/.out to the paper: verifier evidence may use these extensions.
 *.aux
-*.log
-*.out
+/preprints/*/paper.log
+/preprints/*/paper.out
 *.toc
 *.lof
 *.lot
@@ -41,3 +41,13 @@ venv/
 
 # arXiv submission
 /arxiv
+
+# Lean build output
+.lake/
+
+# Publish certificate JSON, Python/C++ checkers, Lean sources and paper.tex.
+# Do not ignore verify/, data/, lean/, or their source/data extensions.
+# Lean compiler artifacts when a build is directed outside .lake
+*.olean
+*.ilean
+*.trace

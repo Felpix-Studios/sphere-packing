@@ -1,0 +1,1 @@
+# Stage 4 uses only the Python standard library (fractions, json, hashlib). Tested with Python 3.14.6.
