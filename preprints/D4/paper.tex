@@ -29,7 +29,7 @@
 \begin{document}
 
 \begin{abstract}
-We prove that every sphere packing in $\R^4$ has density less than $0.629521681653$. The best rigorous published bound was $0.636108$, from the three-point method of Cohn, de Laat and Salmon, and the densest known packing, the lattice $D_4$, has density $\pi^2/16\approx0.616850$. The new bound closes about $34\%$ of the gap. It also lies below $0.637303$, which no bound from the Cohn--Elkies linear program can beat in this dimension. The proof combines a scalar Cohn--Elkies function with a two-point kernel on the neighbours of each centre. The kernel need not be positive definite; only the energy of each actual neighbourhood must be bounded below. A computer checks the sign conditions in exact rational and interval arithmetic. We then raise the floor of the neighbourhood energy in three exact steps: a census of neighbour counts, a sharper finite-count bound for the spherical part, and a reallocation of triangle slack to pairs of neighbours on opposite sides of the centre. One command reruns the certificate checks and exact kernel comparisons from the included data. A Lean~4 formalization defines the concrete kernel and derives the bound from seven remaining certificate hypotheses. Seven of the original fourteen premises have been discharged by formal proofs. The programs and written lemmas establish the remaining statements. Lean also proves the Fourier transform of the scalar function and its signs.
+We prove that every sphere packing in $\R^4$ has density less than $0.629521681653$. The best rigorous published bound was $0.636108$, from the three-point method of Cohn, de Laat and Salmon, and the densest known packing, the lattice $D_4$, has density $\pi^2/16\approx0.616850$. The new bound closes about $34\%$ of the gap. It also lies below $0.637303$, which no bound from the Cohn--Elkies linear program can beat in this dimension. The proof combines a scalar Cohn--Elkies function with a two-point kernel on the neighbours of each centre. The kernel need not be positive definite; only the energy of each actual neighbourhood must be bounded below. A computer checks the sign conditions in exact rational and interval arithmetic. We then raise the floor of the neighbourhood energy in three exact steps: a census of neighbour counts, a sharper finite-count bound for the spherical part, and a reallocation of triangle slack to pairs of neighbours on opposite sides of the centre. One command reruns the complete certificate checks and exact kernel comparisons from the included data. The result is a self-contained computer-assisted proof with an explicit trust boundary: written lemmas, exact rational arithmetic, outward interval arithmetic, and the included checkers establish the concrete certificate.
 \end{abstract}
 
 \maketitle
@@ -68,7 +68,7 @@ The three-point method of \cite{CdLS} uses a kernel $K(x,y)$ that must be positi
 
 The proof proceeds in four steps. A certificate $(f,K)$ gives the raw value $0.6300003$ (Section~\ref{sec:v7}). A census of neighbour counts gives an energy floor and the bound $0.6295390$ (Section~\ref{sec:counts}). Two exact refinements give $0.6295269$ (Section~\ref{sec:refine}). A reallocation of triangle slack to far pairs gives $0.6295217$ (Section~\ref{sec:far}). The first two steps rest on large computations; the last two are short arguments plus a small certificate.
 
-A computer checks every certificate, and Section~\ref{sec:verif} describes the checks. Five certificate stages check the data in exact rational or interval arithmetic; two further programs compare the kernel implementations exactly. One command runs the complete verification. A Lean~4 formalization proves Theorem~\ref{thm:main} for the concrete kernel from seven remaining hypotheses, which the programs establish together with the written lemmas of Section~\ref{sec:verif}. Lean proves the passage from finite configurations to density, the Fourier transform and signs of the scalar function, the arguments of Section~\ref{sec:far} and the final arithmetic. It now defines the kernel and proves its support, pair sign and raw objective. Some component inequalities and concrete certificate bridges are still proved only by the written arguments and external checkers. The kernel enters stages~1 and~5 of the checks through separate code, and Section~\ref{sec:verif} states how the two are linked.
+The complete result is a non-Lean computer-assisted proof. Five certificate stages check the data in exact rational or outward interval arithmetic, and two further programs compare the kernel implementations exactly. The written lemmas establish the local-energy reductions, the finite-to-density argument, and the soundness of the interval lower envelopes. The kernel enters stages~1 and~5 of the checks through separate code, and Section~\ref{sec:verif} states how the two are linked.
 
 Throughout, centres have minimum distance $1$, so the balls have radius $1/2$ and volume $\pi^2/32$. We use the Fourier transform $\hat f(\xi)=\int f(x)e^{-2\pi i\ip x\xi}\,dx$.
 
@@ -108,12 +108,8 @@ For a periodic packing with $N$ centres per period and covolume $V$, apply this 
 
 When $K$ is positive semidefinite on all finite sets, condition~(1) holds with $\beta=0$, and Theorem~\ref{thm:local} is a three-point bound of the type in \cite[Theorem~1.1]{CdLS}. The two statements differ. Theirs asks for a pointwise sign condition on short pairs and for positive definiteness of an untruncated kernel. Ours asks for the cyclic condition~(3) and for a kernel supported in the annulus. Our kernels are not positive semidefinite.
 
-\begin{remark}\label{rem:transfer}
-Lean proves the passage from the finite inequality to density by a different route, with no periodization and no Poisson summation (theorem \texttt{D4Bound.transfer}). Let $\mu$ be the sum of point masses at the $N$ centres in a ball $B(0,\rho)$, and $\nu$ Lebesgue measure on a slightly larger ball $B'$. Fourier inversion gives, for real $t$,
-\[
-\iint f(y-x)\,d(\mu-t\nu)(x)\,d(\mu-t\nu)(y)=\int\hat f(\xi)\,\bigl|\hat\mu(\xi)-t\hat\nu(\xi)\bigr|^2\,d\xi\ge0.
-\]
-The finite inequality bounds the $\mu\mu$ term by $N(f(0)+A-\beta)$, and the sign of $f$ outside a ball bounds the cross terms below by $NI$. Since $f$ is integrable, the $\nu\nu$ term is at most $\mathrm{vol}(B')\,I+o(\mathrm{vol}(B'))$. Taking $t=N/\mathrm{vol}(B')$ and letting $\rho\to\infty$ bounds the upper density. The Lean statement assumes only that $f$ is continuous and integrable, that $\hat f$ is integrable with nonnegative real part, that $\int f>0$, and that $f\le0$ outside a ball.
+\begin{remark}[Finite-to-density transfer]\label{rem:transfer}
+The finite inequality extends to arbitrary packings by the elementary periodic-patch argument in the proof of Theorem~\ref{thm:local}. Repeat a finite unit-separated patch inside cubes with a separating corridor, apply the periodic estimate, and let the cube size tend to infinity. The boundary-volume loss is lower order, while the Schwartz decay of the scalar function controls the omitted translates.
 \end{remark}
 
 \section{The base certificate}\label{sec:v7}
@@ -203,7 +199,7 @@ In every admissible neighbourhood, the number of ordered pairs of neighbours wit
 \end{lemma}
 
 \begin{proof}
-At most $151$ neighbours have radius in $[33/28,7/4]$. To see this, let two of them have radii $r$ and $s$. Unit separation bounds the cosine between them by $h(r,s)=(r^2+s^2-1)/(2rs)$. On $[33/28,7/4]^2$ this function is largest at a corner, and the corners give $697/1089$ and $41/49$, so their directions have pairwise cosines at most $41/49$. An exact certificate supplies a polynomial $p=\sum_{l\le20}c_lU_l/(l+1)$ with $c_0>0$, $c_l\ge0$ and $p\le0$ on $[-1,41/49]$, so there are at most $p(1)/c_0<152$ such directions. Fix such a neighbour $y$ and let $w$ be the unit vector $-y/|y|$. Every partner $z$ of $y$ has direction $z/|z|$ with component at least $7/8$ along $w$. If some component equals $1$, that partner is the only one. Otherwise take two partners with components $h,h'\in[7/8,1)$ and cosine $c\le41/49$. Their normalized projections onto $w^\perp\cong\R^3$ have inner product $(c-hh')/\sqrt{(1-h^2)(1-h'^2)}$. This increases with $c$, and its derivative in $h$ has the sign of $ch-h'\le41/49-7/8<0$, and likewise in $h'$. So it is at most $(41/49-49/64)/(1-49/64)=223/735$. The exact Legendre certificate in \texttt{data/projected\_eight.json} proves that a spherical code in $\R^3$ with these projected inner products has at most $8$ points. Its constant coefficient is $99999/100000$, its value at one is $89804130521/10^{10}<9(99999/100000)$, and its nonpositive sign on $[-1,223/735]$ is checked by $46$ dyadic intervals and a separate endpoint calculation. All other Legendre coefficients are nonnegative, and their positive definiteness is proved in Lean. This also follows from the stronger classical nine-point theorem \cite{SvdW,BM}, but that theorem is no longer required. Thus every vertex has degree at most $8$, and the number of ordered pairs is at most $151\cdot8=1208$.
+At most $151$ neighbours have radius in $[33/28,7/4]$. To see this, let two of them have radii $r$ and $s$. Unit separation bounds the cosine between them by $h(r,s)=(r^2+s^2-1)/(2rs)$. On $[33/28,7/4]^2$ this function is largest at a corner, and the corners give $697/1089$ and $41/49$, so their directions have pairwise cosines at most $41/49$. An exact certificate supplies a polynomial $p=\sum_{l\le20}c_lU_l/(l+1)$ with $c_0>0$, $c_l\ge0$ and $p\le0$ on $[-1,41/49]$, so there are at most $p(1)/c_0<152$ such directions. Fix such a neighbour $y$ and let $w$ be the unit vector $-y/|y|$. Every partner $z$ of $y$ has direction $z/|z|$ with component at least $7/8$ along $w$. If some component equals $1$, that partner is the only one. Otherwise take two partners with components $h,h'\in[7/8,1)$ and cosine $c\le41/49$. Their normalized projections onto $w^\perp\cong\R^3$ have inner product $(c-hh')/\sqrt{(1-h^2)(1-h'^2)}$. This increases with $c$, and its derivative in $h$ has the sign of $ch-h'\le41/49-7/8<0$, and likewise in $h'$. So it is at most $(41/49-49/64)/(1-49/64)=223/735$. The exact Legendre certificate in \texttt{data/projected\_eight.json} proves that a spherical code in $\R^3$ with these projected inner products has at most $8$ points. Its constant coefficient is $99999/100000$, its value at one is $89804130521/10^{10}<9(99999/100000)$, and its nonpositive sign on $[-1,223/735]$ is checked by $46$ dyadic intervals and a separate endpoint calculation. All other Legendre coefficients are nonnegative, and their positive definiteness follows from the standard spherical addition theorem. This also follows from the stronger classical nine-point theorem \cite{SvdW,BM}, but that theorem is no longer required. Thus every vertex has degree at most $8$, and the number of ordered pairs is at most $151\cdot8=1208$.
 \end{proof}
 
 The energy $\delta(1358-e)$ is then at least $\delta\cdot150=3/10^6$, which lowers the bound by $3/8000000$.
@@ -232,7 +228,7 @@ Condition~(3) of Theorem~\ref{thm:local} is an inequality, and its slack $-\Gam\
 \[
 H(x,y)=-\Gam(x,y)/k\quad\text{if }x\ne y,\ 1\le|x|,|y|\le7/4,\ \Gam(x,y)\ne0,
 \]
-and $H=0$ otherwise, and put $K'=K+H$. Then $K'(0,0)=K(0,0)$, and the pair term of condition~(2) is unchanged because $H$ vanishes on the diagonal and at the origin. The proof of Theorem~\ref{thm:local} uses condition~(3) only through the sum of the kernel over ordered triples of distinct centres, and for $K'$ this sum is $0$. To see this, give each vertex $v$ of a triangle the share $s_v=1/k$ if both its incident sides are at most $7/4$, and $s_v=0$ otherwise, so that $H=-s\Gam$ at each anchor. Expand the sum of $H$ over ordered triples of distinct points $p_i,p_j,p_l$ of a unit-separated set and relabel. Each term $K(p_j-p_i,p_l-p_i)$ then appears with coefficient $-(s_i+2s_j)$. When this term is nonzero, vertex $i$ has both incident sides at most $7/4$. If $k=3$ the coefficient is $-(1/3+2/3)=-1$. If $k=1$ only vertex $i$ qualifies, and the coefficient is $-1$. So the triple sum of $H$ is minus that of $K$, and the triple sum of $K+H$ is zero. This argument does not use symmetry of $K$, and Lean follows it. Since $\Gam\le0$, $H\ge0$, so the energy $E'$ of $K'$ is at least $E$, and Theorem~\ref{thm:local} applies to $K'$ with any floor for $E'$.
+and $H=0$ otherwise, and put $K'=K+H$. Then $K'(0,0)=K(0,0)$, and the pair term of condition~(2) is unchanged because $H$ vanishes on the diagonal and at the origin. The proof of Theorem~\ref{thm:local} uses condition~(3) only through the sum of the kernel over ordered triples of distinct centres, and for $K'$ this sum is $0$. To see this, give each vertex $v$ of a triangle the share $s_v=1/k$ if both its incident sides are at most $7/4$, and $s_v=0$ otherwise, so that $H=-s\Gam$ at each anchor. Expand the sum of $H$ over ordered triples of distinct points $p_i,p_j,p_l$ of a unit-separated set and relabel. Each term $K(p_j-p_i,p_l-p_i)$ then appears with coefficient $-(s_i+2s_j)$. When this term is nonzero, vertex $i$ has both incident sides at most $7/4$. If $k=3$ the coefficient is $-(1/3+2/3)=-1$. If $k=1$ only vertex $i$ qualifies, and the coefficient is $-1$. So the triple sum of $H$ is minus that of $K$, and the triple sum of $K+H$ is zero. This argument does not use symmetry of $K$. Since $\Gam\le0$, $H\ge0$, so the energy $E'$ of $K'$ is at least $E$, and Theorem~\ref{thm:local} applies to $K'$ with any floor for $E'$.
 
 \subsection*{The far-pair lemma}
 Put $a=133/250$ and $q(t)=t^2(t^2-a^2)$. For $j\le5$ let $B_j$ be the set of pairs $(y,z)$ with $|y|,|z|\in[1,R_j]$ and cosine in $[-1,-a]$.
@@ -245,7 +241,7 @@ Let $u_1,\dots,u_N$ be unit vectors in $\R^4$ and $t_{ik}=\ip{u_i}{u_k}$. Then
 \end{lemma}
 
 \begin{proof}
-Write $q=\frac1{16}U_4+(\frac3{16}-\frac{a^2}4)U_2+(\frac18-\frac{a^2}4)U_0$; the coefficients are positive and each $U_k(\ip uv)$ is positive definite on $S^3$ \cite{Schoenberg}, which gives the bound. We also give a direct proof, which the Lean formalization follows. Let $G=\sum_iu_iu_i^\top$ and $T=\sum_iu_i^{\otimes4}$, so $S_2:=\sum_{i,k}t_{ik}^2=\|G\|^2$ and $S_4:=\sum_{i,k}t_{ik}^4=\|T\|^2$. Since $\operatorname{tr}G=N$, $S_2\ge\sum_bG_{bb}^2\ge N^2/4$. Let $P$ be the symmetrization of $G\otimes\mathrm{Id}$, the sum of the six tensors obtained by placing $G$ on two of the four indices and the identity matrix on the other two. A direct computation using $|u_i|=1$ gives $\ip TP=6S_2$ and $\|P\|^2=48S_2+6N^2$. By Cauchy--Schwarz, $36S_2^2\le S_4(48S_2+6N^2)$. Writing $S_2=xN^2$ with $x\ge\frac14$,
+Write $q=\frac1{16}U_4+(\frac3{16}-\frac{a^2}4)U_2+(\frac18-\frac{a^2}4)U_0$; the coefficients are positive and each $U_k(\ip uv)$ is positive definite on $S^3$ \cite{Schoenberg}, which gives the bound. We also give a direct proof, which also gives a direct non-computational proof. Let $G=\sum_iu_iu_i^\top$ and $T=\sum_iu_i^{\otimes4}$, so $S_2:=\sum_{i,k}t_{ik}^2=\|G\|^2$ and $S_4:=\sum_{i,k}t_{ik}^4=\|T\|^2$. Since $\operatorname{tr}G=N$, $S_2\ge\sum_bG_{bb}^2\ge N^2/4$. Let $P$ be the symmetrization of $G\otimes\mathrm{Id}$, the sum of the six tensors obtained by placing $G$ on two of the four indices and the identity matrix on the other two. A direct computation using $|u_i|=1$ gives $\ip TP=6S_2$ and $\|P\|^2=48S_2+6N^2$. By Cauchy--Schwarz, $36S_2^2\le S_4(48S_2+6N^2)$. Writing $S_2=xN^2$ with $x\ge\frac14$,
 \[
 \frac{S_4-a^2S_2}{N^2}-\Bigl(\frac18-\frac{a^2}4\Bigr)\ge\frac{6\,(x-\frac14)\bigl((6-8a^2)x+\frac12-a^2\bigr)}{48x+6}\ge0.
 \]
@@ -286,14 +282,14 @@ which proves Theorem~\ref{thm:main}.
 
 \section{Verification}\label{sec:verif}
 
-This section states what a computer checks, what rests on written proofs and cited theorems, and what Lean proves. Three folders accompany the paper: \texttt{data/} holds the certificate data, \texttt{verify/} the programs, and \texttt{lean/} the Lean project.
+This section states what the computer checks and what rests on written proofs and cited theorems. Two folders accompany the paper: \texttt{data/} holds the certificate data and \texttt{verify/} holds the programs and reproducibility records.
 
 \subsection*{Programs}
 Every decision is made in exact rational arithmetic or in outward-rounded interval arithmetic. Floating point only reports values. The programs read nothing outside the package. The command
 \begin{center}
 \texttt{python3 verify/verify\_all.py --out DIR --mode full}
 \end{center}
-runs five certificate stages in order and passes each stage's fresh output to the next. It then runs the independent kernel reconstruction and the exact stage-1/stage-5 link described below. It then recomputes the final ledger from those outputs in exact arithmetic and checks that $U_{\mathrm{raw}}-a_{\mathrm{new}}/8-3/8000000<629521681653/10^{12}$. Table~\ref{tab:stages} lists what each stage checks. The original five-stage replay took about $31$ minutes on an Apple M2 Pro with two workers; the additional kernel identity checks require several more minutes. The release review records the current commands, results and resource measurements. Quick mode omits the $112$ triangle subdivisions and is not a fresh verification of the global theorem. With \texttt{--lean}, the driver also builds the Lean modules serially and checks their axiom reports.
+runs five certificate stages in order and passes each stage's fresh output to the next. It then runs the independent kernel reconstruction and the exact stage-1/stage-5 link described below. It then recomputes the final ledger from those outputs in exact arithmetic and checks that $U_{\mathrm{raw}}-a_{\mathrm{new}}/8-3/8000000<629521681653/10^{12}$. Table~\ref{tab:stages} lists what each stage checks. The original five-stage replay took about $31$ minutes on an Apple M2 Pro with two workers; the additional kernel identity checks require several more minutes. The release review records the current commands, results and resource measurements. Quick mode omits the $112$ triangle subdivisions and is not a fresh verification of the global theorem.
 
 \begin{table}[ht]
 \caption{The five stages of \texttt{verify/} and what a full run checks.}\label{tab:stages}
@@ -319,53 +315,14 @@ The programs trust Python's integer and \texttt{fractions} arithmetic, NumPy int
 \subsection*{Written proofs and cited theorems}
 Some lemmas have only written proofs, and the programs check only the parameters they need. These are the lemmas that make the local-energy components of Section~\ref{sec:v7} nonnegative: the ball counts behind the caps, the tent occupancy bound, the capacity inequalities of the two antipodal allocations, the affine-latitude reduction in Lemma~\ref{lem:counts}, the passage from a spherical code to a count of neighbours in a shell, and the identity behind the pair count gauge. For one allocation the case $r\ge1/2$ of the capacity inequality is Blichfeldt's inequality \cite{Blichfeldt}; the package proves the whole inequality. \texttt{verify/stage1\_v7/COMPONENTS.md} lists each component with its lemma, its written proof and its checker. The derivations in Sections~\ref{sec:counts} and~\ref{sec:refine} and the soundness of the kink replacement in Section~\ref{sec:far} are also written arguments; the programs recompute their arithmetic.
 
-Both previously cited inputs now have formal replacements. Schoenberg's theorem on $S^3$ and $S^2$ is proved in Lean in every degree. The required projected degree bound in Lemma~\ref{lem:1208} follows from the exact Legendre certificate at $223/735$, also proved in Lean. The full nine-point theorem of Sch\"utte and van der Waerden at $1/3$ remains a cited alternative, not a premise of the current formal density theorem.
+The spherical positivity and projected-code steps used here are supplied by the written arguments and the exact certificate data. The stronger nine-point theorem of Sch\"utte and van der Waerden at $1/3$ remains a cited alternative, not a required premise of the computer-assisted replay.
 
 The former sampled links between kernel implementations are strengthened in two ways. First, \texttt{verify/kernel\_independent/} reconstructs the kernel from the four V7 data files without importing either original implementation. It compares $1\,059\,688$ polynomial coefficients over all $84$ full and $28$ exterior branches, all seven pair pieces, and the exact origin and raw objective. It also checks $775$ component equations and the radial basis and boundary conventions. The cap, tent, allocation and gauge identities are proved in \texttt{COMPONENT\_IDENTITIES.md}; their sampled evaluations remain diagnostics only. This is an independent assembler, not a second independent proof of all continuum sign conditions.
 
 Second, \texttt{verify/kernel\_link/} compares the actual stage~5 formula with the stage~1 assembly on every one of the $25$ ordered radial cells of $B_5$, which also covers $B_1$. Rational-function coefficients and canonical nonpolynomial function atoms are compared exactly, including the $25$ faces at $t=-1$. The comparison covers $213\,550$ polynomial coefficients and $1655$ nonpolynomial monomials. At the singular angular endpoint the certified interval routine omits nonnegative cap terms; the checker identifies this lower envelope separately from the exact mathematical kernel. Five corruption controls test coefficient changes, missing cells, endpoint changes and a nonintegral denominator. The symbolic adapters have documented mathematical meanings, but are not a formal semantics verification of Python. The exact link still requires the written proof of interval lower-envelope soundness and the full stage~1 and stage~5 sign replays.
 
-\subsection*{Lean}
-The folder \texttt{lean/} is a Lake project for Lean~4 and Mathlib, both at v4.33.1. The verification driver builds its modules serially after the compiled Mathlib dependencies are installed. It contains no \texttt{sorry} and no \texttt{native\_decide}, and every main theorem depends only on the axioms \texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}. The theorem \texttt{D4Bound.d4\_density\_bound\_concrete} fixes the kernel \texttt{V7.kernel}. Let its seven remaining certificate statements in Table~\ref{tab:hyp} hold, and let $P\subset\R^4$ have pairwise distances at least $1$. Then
-\[
-\limsup_{\rho\to\infty}\frac{\mathrm{vol}(B_{1/2})\,\#(P\cap B(0,\rho))}{\mathrm{vol}(B(0,\rho))}<0.629521681653.
-\]
-The scalar function $f$ is concrete, defined from the $50$ exact coefficients of $F$ in the data. The concrete kernel is defined from the included exact data; the generic theorem also remains available for an arbitrary $K$. Lean proves:
-\begin{itemize}
-\item Theorem~\ref{thm:local}, by the route of Remark~\ref{rem:transfer};
-\item the Fourier transform of $e^{-2|x|^2}P(2|x|^2)$ for every real polynomial $P$, the coefficient identity relating $F$ and $G$, $G(0)=1$, and the signs $G>0$ on $[0,\infty)$ and $F<0$ on $[49/8,\infty)$. The signs use interval certificates on $221$ dyadic intervals and two tails, checked by the Lean kernel and independent of the Sturm sequences of stage~1;
-\item Lemma~\ref{lem:quartic}, Lemma~\ref{lem:geom} and Proposition~\ref{prop:far}, with the allocation $H$ defined from $K$. The sum of $K+H$ over ordered triples vanishes, and the far-pair gain follows from the kernel-box hypotheses;
-\item the geometric shell and affine-latitude reductions of Lemma~\ref{lem:counts}, and the two concrete latitude certificates, the annular count $151$, and the broad-graph capacity $1208$ from the formally proved projected eight-point bound;
-\item the $S^3$ and $S^2$ Schoenberg theorems in every degree, generic Gram and origin-credit inequalities, the pair-count gauge, ball-count and tent inequalities, and both antipodal allocation capacities;
-\item the energy $3/10^6$ of the broad graph and the ledger over all $124$ groups with the final inequality.
-\end{itemize}
-
-\begin{table}[ht]
-\caption{Original certificate obligations and current proof status. Seven remain premises of \texttt{d4\_density\_bound\_concrete}. Here $K_g$ is the broad graph energy of Table~\ref{tab:graphs} written as a kernel, and $E_{K-K_g}$ is the anchored energy of $K-K_g$.}\label{tab:hyp}
-\centering
-\small
-\begin{tabular}{lp{0.5\textwidth}l}
-\toprule
-hypothesis & statement & certified by \\
-\midrule
-\texttt{v7\_support} & $K(x,y)=0$ if $|x|>7/4$ or $|y|>7/4$ & proved in Lean \\
-\texttt{v7\_pair} & condition~(2) of Theorem~\ref{thm:local} & proved in Lean \\
-\texttt{v7\_cyclic} & condition~(3) of Theorem~\ref{thm:local} & stage 1 \\
-\texttt{v7\_raw} & $f(0)+K(0,0)\le8\bar U$, where $\bar U\ge U_{\mathrm{raw}}$ & proved in Lean \\
-\texttt{census} & for admissible $X$ in the count domain, $E_{K-K_g}(X)$ is at least each matching group's floor & stages 2 and 3 \\
-\texttt{kernel\_box\_1} & $-K\ge\lambda_1q$ on $B_1$ & stage 5 \\
-\texttt{kernel\_box\_5} & $-K\ge\lambda_5q$ on $B_5$ & stage 5 \\
-\texttt{code\_24/25/26} & spherical code caps $24,25,26$ at cosines $203/400$, $103/200$, $21/40$ (three hypotheses) & stages 1 and 2 \\
-\texttt{latitude\_15/24} & exact polynomial sign alternatives for the two affine latitude maps (two hypotheses) & proved in Lean \\
-\texttt{annular\_151} & a spherical code at cosine $41/49$ has at most $151$ points & proved in Lean \\
-\texttt{svdw} & replaced by the sufficient code bound at $223/735$ & proved in Lean \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-The Lean floors and $\bar U$ are outward roundings of the exact values, within $10^{-24}$. Two scripts in \texttt{lean/scripts/} check these roundings and check that the Lean copies of $F$ and $G$ match the data. The support hypothesis holds by construction. Lean derives the count domain and coverage by the $124$ groups from the three spherical code bounds and the two latitude certificates. It also derives the broad-graph capacity $1208$ from the proved annular and projected code bounds, so \texttt{graph\_slack} is now a proved consequence rather than a hypothesis.
-
-The current dependency map is \texttt{PROOF\_DEPENDENCIES.md}, with a dated addendum in \texttt{lean/HYPOTHESIS\_AUDIT.md}. Lean defines the concrete kernel, but its cyclic sign, census floor, two kernel-box inequalities and three near-code bounds still have explicit premises. Partial finite checkers and generic soundness lemmas do not discharge their remaining concrete analytic bridges. The complete proof combines the exact and interval programs, the written component arguments, and the Lean derivation. This remains a computer-assisted proof with a stated trust boundary, not an unconditional end-to-end Lean certificate.
+\subsection*{Current proof status}
+The published result is the computer-assisted proof described above. The exact and interval programs, written component arguments, independent reconstruction, and kernel-link checks establish the concrete certificate from the included data. The proof stated here uses no proof-assistant formalization.
 
 \section{Remarks}
 
@@ -373,11 +330,11 @@ The method cannot prove that $D_4$ is optimal. For the lattice $D_4$, averaging 
 
 \section*{AI usage statement}
 
-AI agents (OpenAI GPT-6 models through Codex and Anthropic Claude models through Claude Code) found the certificates, wrote and ran the verification programs, wrote the Lean formalization and drafted this paper. The author directed the work. Agents also checked each other's work. Separate agents packaged and reran each stage of \texttt{verify/}, and an agent that did not write the Lean hypotheses audited them against the programs. No person outside the project has reviewed the proofs, the programs or the Lean code.
+AI agents (OpenAI GPT-6 models through Codex and Anthropic Claude models through Claude Code) found the certificates, wrote and ran the verification programs, and drafted this paper. The author directed the work. Agents also checked each other's work. Separate agents packaged and reran each stage of \texttt{verify/}. No person outside the project has reviewed the proofs or the programs.
 
 \section*{Data availability}
 
-The certificate data (\texttt{data/}), the verification programs (\texttt{verify/}) and the Lean project (\texttt{lean/}) accompany this paper. Each folder's \texttt{README.md} describes its files. \texttt{verify/README.md} gives the commands that rerun every check, and each stage folder states the theorem it certifies and its trust base.
+The certificate data (\texttt{data/}) and verification programs (\texttt{verify/}) accompany this paper. Each folder's \texttt{README.md} describes its files. \texttt{verify/README.md} gives the commands that rerun every check, and each stage folder states the theorem it certifies and its trust base.
 
 \begin{thebibliography}{99}
 
