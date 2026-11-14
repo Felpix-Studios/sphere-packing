@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Run every check behind the D4 bound and compose the final inequality.
 
-    python3 verify/verify_all.py --out DIR [--mode quick|full] [--workers N] [--lean]
+    python3 verify/verify_all.py --out DIR [--mode quick|full] [--workers N]
 
-Run from the D4 folder (the folder that holds paper.tex, data/, verify/ and lean/).
+Run from the D4 folder (the folder that holds paper.tex, data/ and verify/).
 DIR must not exist. Each stage writes DIR/<stage>/RESULT.json; this driver passes each
 stage's fresh output to the next stage, then recomputes the final ledger in exact
 arithmetic from the fresh stage outputs and checks
@@ -14,8 +14,8 @@ Modes:
   full   reruns everything, including all 112 cyclic triangle branches of stage 1.
   quick  skips the 112 branch subdivisions of stage 1 (it still reruns every exact check
          and the pair pieces); stage 2 then uses the committed stage 1 values.
-Two exact kernel identity checks also run in both modes. --lean additionally builds
-the Lean project serially and checks every declared axiom report.
+Two exact kernel identity checks also run in both modes.  The Lean formalization is
+a separate project and is deliberately not imported by this driver.
 
 Exit 0 means every stage passed and the final inequality holds. Anything else is failure.
 """
@@ -28,6 +28,7 @@ import re
 import subprocess
 import sys
 import time
+import hashlib
 
 D4 = Path(__file__).resolve().parents[1]
 V = D4 / "verify"
@@ -81,6 +82,26 @@ def audit_axioms(output, expected):
     return found
 
 
+def check_export_manifests():
+    """Fail closed if any shipped manifest entry is missing or stale."""
+    checked = 0
+    for manifest_path in sorted(V.rglob("*MANIFEST.json")):
+        manifest = json.loads(manifest_path.read_text())
+        rows = manifest.get("files", [])
+        if isinstance(rows, dict):
+            rows = [dict(value, path=path) for path, value in rows.items()]
+        for row in rows:
+            relative = Path(row["path"])
+            path = manifest_path.parent / relative
+            if relative.is_absolute() or not path.is_file() or not path.resolve().is_relative_to(V.resolve()):
+                raise ValueError(f"missing or escaping manifest entry: {manifest_path}:{relative}")
+            data = path.read_bytes()
+            if len(data) != row["bytes"] or hashlib.sha256(data).hexdigest() != row["sha256"]:
+                raise ValueError(f"manifest mismatch: {manifest_path}:{relative}")
+            checked += 1
+    return checked
+
+
 def fail(msg):
     print("FAIL:", msg, flush=True)
     sys.exit(1)
@@ -118,7 +139,6 @@ def main():
     ap.add_argument("--out", type=Path, required=True, help="new output folder")
     ap.add_argument("--mode", choices=["quick", "full"], default="full")
     ap.add_argument("--workers", type=int, choices=range(1, 5), default=2, help="workers for stages 1 and 5 (2 needs about 1 GB)")
-    ap.add_argument("--lean", action="store_true", help="also build the Lean project with lake")
     args = ap.parse_args()
     if not __debug__ or os.environ.get("PYTHONOPTIMIZE"):
         ap.error("optimized Python disables assertions in inherited checkers; unset PYTHONOPTIMIZE and omit -O")
@@ -128,6 +148,10 @@ def main():
     out.mkdir(parents=True)
     logs = out / "logs"
     logs.mkdir()
+    try:
+        manifest_files = check_export_manifests()
+    except (KeyError, OSError, TypeError, ValueError) as exc:
+        fail(f"export manifest audit failed: {exc}")
     py = sys.executable
     w = str(args.workers)
     d = {s: out / s for s in ["stage1_v7", "stage2_origin", "stage3_census",
@@ -220,26 +244,8 @@ def main():
         "U_new_decimal": f"{float(U_new):.15f}",
         "bound": f"density < {THRESHOLD} = 0.629521681653",
         "seconds": round(time.time() - t0, 1),
+        "manifest_files_checked": manifest_files,
     }
-
-    lean_args = [py, str(D4 / "lean/scripts/check_lean_inputs.py")]
-    rc = subprocess.run(lean_args, cwd=D4, stdout=(logs / "check_lean_inputs.log").open("w"),
-                        stderr=subprocess.STDOUT).returncode
-    if rc != 0:
-        fail(f"check_lean_inputs exit {rc}; see {logs / 'check_lean_inputs.log'}")
-    summary["lean_inputs"] = "PASS"
-    with (logs / "scalar_generated.log").open("w") as fh:
-        rc = subprocess.run([py, str(D4 / "lean/scripts/gen_scalar.py"), "--check"],
-                            cwd=D4, stdout=fh, stderr=subprocess.STDOUT).returncode
-    if rc != 0:
-        fail(f"generated scalar data differs; see {logs / 'scalar_generated.log'}")
-    summary["scalar_generated"] = "PASS"
-
-    if args.lean:
-        lr = run_stage("lean", [py, str(V / "verify_lean.py"), "--out", str(out / "lean")],
-                       out / "lean", logs)
-        summary["lean_build"] = "PASS"
-        summary["lean_axioms"] = lr["axioms"]
 
     (out / "SUMMARY.json").write_text(json.dumps(summary, indent=1) + "\n")
     print(json.dumps(summary, indent=1))

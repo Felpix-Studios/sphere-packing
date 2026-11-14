@@ -24,12 +24,12 @@
     {
       "path": "reference/ACCEPTANCE.json",
       "bytes": 363933,
-      "sha256": "d7e5571d379678d4c039f0624fdf7bf71b146b821a792ada75f081fe8a54dc8a"
+      "sha256": "74e6dd34c7346bc9cf41314811b6d9f1636b5c8139522b9aa0f68eb8e9671a07"
     },
     {
       "path": "reference/ANGULAR_0.json",
       "bytes": 5567,
-      "sha256": "7f335d456ab9206527041f4a07bdcce46c513dc91ad4d408c8b5171cc8552782"
+      "sha256": "856ab0a6b5050fd09808873bf9d768194174472dac902c5b387a10ee2894680e"
     },
     {
       "path": "reference/ANGULAR_1.json",
@@ -39,7 +39,7 @@
     {
       "path": "reference/ANGULAR_2.json",
       "bytes": 5537,
-      "sha256": "c427fc3f99d84985e9353c70c65cf71660118821dbb9ce59ae48b6d50a013bea"
+      "sha256": "52e1c70323aaf55f6bd045ad63b37d35869908ea3a7e14dd709de492236c47a7"
     },
     {
       "path": "reference/COUNT_GEOMETRY.json",
@@ -109,7 +109,7 @@
     {
       "path": "source/MANIFEST.json",
       "bytes": 1155759,
-      "sha256": "52a6a293ccef16d9d537aae6b67106c07bc49ec435a70d8a91c54aabd121acef"
+      "sha256": "225589572863424c23ba43ca6728c3e58633ea0f5778e9ef905e32a0c5d52ec9"
     },
     {
       "path": "source/audit/round9_six_graphs_monotone_origin_credit_global_verified.json",
@@ -174,7 +174,7 @@
     {
       "path": "source/target625/geometry/accepted_stratified_N24_R1_degree8_exact_eps6/VERIFIED.json",
       "bytes": 5566,
-      "sha256": "cc4075bb503caf42c1ed5501afdadc6e4f4e9c1c8c5af33abdc7cb3cc9ff0510"
+      "sha256": "c3dfd6ddbc222e5f6f19540786d29813427e9ae8f382b1bc2a175ba0addb25f8"
     },
     {
       "path": "source/target625/geometry/accepted_stratified_N24_R1_degree8_exact_eps6/certificate.json",
@@ -184,7 +184,7 @@
     {
       "path": "source/target625/geometry/accepted_stratified_N25_R4_degree8_exact_eps4/VERIFIED.json",
       "bytes": 5537,
-      "sha256": "7a2c5bbba69d43e8c32f6ee5929215f4a6605e13911c1342ca8a0c229e9f601b"
+      "sha256": "ae497dbf1e644a2ad36c2b0384757ceddb0e436c45231a6fcf2efacb16d12ad5"
     },
     {
       "path": "source/target625/geometry/accepted_stratified_N25_R4_degree8_exact_eps4/certificate.json",
@@ -213,8 +213,8 @@
     },
     {
       "path": "source/target625/geometry/fixed_cardinality_spherical_algebra.py",
-      "bytes": 13676,
-      "sha256": "2d11a2ce3853dcbcbd370947b20a4d341e4f677fe602245b6bc5abf42e86f1a1"
+      "bytes": 13674,
+      "sha256": "66174183e7ef69ebf496035e05b9b16e1875faefdfe45cec25566efa3997d5ed"
     },
     {
       "path": "source/target625/origin_completion/ACCEPTED_JOINT_COUNT_PROJECTION.json",
@@ -224,7 +224,7 @@
     {
       "path": "source/target625/origin_completion/FINAL_ORIGIN_REGISTRY.json",
       "bytes": 2172,
-      "sha256": "a2279289fa24526ab9783465b750c9ea0ae71051664c4ed649862977dbd037e0"
+      "sha256": "3675990332310d5853e54e17d99d12d3fd2a4bb0f66058d1fd2f1c83ca4f7278"
     },
     {
       "path": "source/target625/origin_completion/RADIAL_FEASIBILITY_FLOORS_VERIFIED.json",
@@ -239,7 +239,7 @@
     {
       "path": "source/target625/origin_completion/compose_radial_stratified_origin_credit.py",
       "bytes": 17807,
-      "sha256": "60c4412eedb14cf80bab2d25b1a8fde69bec4a0d24d16cd9e39703f38e71a4b1"
+      "sha256": "3888e1a3aea4a8d76360b64b3850e76c9edf9e3172738ac3c9877e486bab4bcb"
     },
     {
       "path": "source/target625/origin_completion/compose_uniform_joint_count_global_credit.py",

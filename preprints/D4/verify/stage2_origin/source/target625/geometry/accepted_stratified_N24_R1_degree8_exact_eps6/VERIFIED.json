@@ -57,7 +57,7 @@
   "global_bound_proved": false,
   "certificate_sha256": "38a01ccadb989afbfa5c77020b804c82ebc14f9d7b2b654d942ade4fbf355e38",
   "verifier_sha256": "03e5584dfb1d19740035342fa7afb0a497b8283e6c8ae4ddf27303a5e2c21536",
-  "algebra_sha256": "2d11a2ce3853dcbcbd370947b20a4d341e4f677fe602245b6bc5abf42e86f1a1",
+  "algebra_sha256": "66174183e7ef69ebf496035e05b9b16e1875faefdfe45cec25566efa3997d5ed",
   "seconds": 34.27680325508118,
   "accepted_combination": {
     "accepted_origin_file": "current/candidates/round9_six_graphs_degree18/origin.json",

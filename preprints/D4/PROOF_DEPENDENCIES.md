@@ -3,12 +3,15 @@
 This is a source audit of the argument for **upper density less than
 0.629521681653 for every packing of congruent balls in R4**. It is not a
 proof that the D4 lattice is optimal. All certificate inputs and programs
-needed for this bound are in this directory. The mathematical argument
-combines the written proofs, exact/interval certificate verification, and
-Lean theorems. It is not an unconditional end-to-end Lean certificate: the
-concrete kernel is defined in Lean, while several concrete sign and energy bridges remain outside its completed proofs.
+needed for this bound are in this directory. The non-Lean proof path combines
+the written proofs with exact/interval certificate verification. It is
+self-contained in `paper.tex`, `data/`, and
+`verify/`; it does not require the separate Lean project. The Lean material
+described below is a parallel formalization and is not a prerequisite for the
+non-Lean result.
 
-The concrete specialization is in [ConcreteMain.lean](lean/D4Bound/ConcreteMain.lean).
+The separate Lean concrete specialization is in
+[ConcreteMain.lean](lean/D4Bound/ConcreteMain.lean).
 It has seven remaining certificate premises: cyclic sign, census floor, two
 kernel boxes, and three near-code bounds. Seven of the original fourteen
 premises are now supplied by Lean proofs. `P` and its unit-separation premise

@@ -20,7 +20,7 @@
       "certificate": "target625/geometry/accepted_stratified_N24_R1_degree8_exact_eps6/certificate.json",
       "certificate_sha256": "38a01ccadb989afbfa5c77020b804c82ebc14f9d7b2b654d942ade4fbf355e38",
       "prior_verification": "target625/geometry/accepted_stratified_N24_R1_degree8_exact_eps6/VERIFIED.json",
-      "prior_verification_sha256": "cc4075bb503caf42c1ed5501afdadc6e4f4e9c1c8c5af33abdc7cb3cc9ff0510"
+      "prior_verification_sha256": "c3dfd6ddbc222e5f6f19540786d29813427e9ae8f382b1bc2a175ba0addb25f8"
     },
     {
       "kind": "bounded_N26",
@@ -34,7 +34,7 @@
       "certificate": "target625/geometry/accepted_stratified_N25_R4_degree8_exact_eps4/certificate.json",
       "certificate_sha256": "d69bff8f8082d4d2b576745fc05c57ac2ccf49ef659f45d0896e977245a7744b",
       "prior_verification": "target625/geometry/accepted_stratified_N25_R4_degree8_exact_eps4/VERIFIED.json",
-      "prior_verification_sha256": "7a2c5bbba69d43e8c32f6ee5929215f4a6605e13911c1342ca8a0c229e9f601b"
+      "prior_verification_sha256": "ae497dbf1e644a2ad36c2b0384757ceddb0e436c45231a6fcf2efacb16d12ad5"
     }
   ]
 }

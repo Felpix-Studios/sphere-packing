@@ -106,7 +106,17 @@ The computation trusts the stated Python/FLINT/Arb/C++ arithmetic stack. The int
 
 The 2026-11-13 follow-up reviewed the supplied missing-verifier critique against the actual stage drivers, Lean theorem applications, written component arguments, and files eligible for Git inclusion. All 229 rows in the six top-level stage/independent manifests existed, matched their declared hashes and byte counts, and were included in the prospective publication set. No mathematical source/data file examined was ignored, and no publication symlinks were found. README links and the revised ignore behavior passed focused checks.
 
-The missing pair/triangle, census, spherical-certificate and kernel-evaluator objections are addressed by the included files. Allocation and arbitrary-packing density transfer are proved in Lean. Compilation alone still establishes a conditional implication; the concrete kernel hypotheses are discharged by the rest of the written/computational argument, with the two cited classical inputs above. This was a source and publication-completeness audit, not another expensive sign replay or a new line-by-line audit of every inherited arithmetic engine. The preceding fresh-run evidence remains the computational basis.
+The missing pair/triangle, census, spherical-certificate and kernel-evaluator objections are addressed by the included files. In the separate Lean formalization, allocation and arbitrary-packing density transfer are proved in Lean. The non-Lean path instead uses the written density-transfer theorem and its exact/interval certificate replay. This was a source and publication-completeness audit, not another expensive sign replay or a new line-by-line audit of every inherited arithmetic engine. The preceding fresh-run evidence remains the computational basis.
+
+## Non-Lean proof path
+
+The preceding paragraphs describe the separate Lean formalization and its historical
+replay. The public non-Lean proof path is now intentionally independent: `verify_all.py`
+does not import or invoke Lean, and the written periodic-patch argument in `paper.tex`
+and `verify/stage5_kernelbox/proofs/conditional_theorem.md` supplies the passage from
+finite certificate inequalities to arbitrary-packing density. A clean non-Lean replay
+therefore requires only the files in `data/` and `verify/`, together with the pinned
+Python/FLINT/Arb/C++ dependencies.
 
 ## Solo continuation checkpoint — 2026-11-13
 

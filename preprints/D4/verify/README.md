@@ -9,7 +9,7 @@ From the D4 folder:
     pip install -r verify/requirements.txt
     python3 verify/verify_all.py --out /tmp/d4-check --mode full
 
-The driver runs the five certificate stages in order and passes each stage's fresh output to the next. It also runs the independent kernel reconstruction and the exact stage-1/stage-5 formula link. It then recomputes the final ledger from those outputs in exact rational arithmetic. Finally it checks
+The driver first verifies every file listed by the stage manifests, then runs the five certificate stages in order and passes each stage's fresh output to the next. It also runs the independent kernel reconstruction and the exact stage-1/stage-5 formula link. It then recomputes the final ledger from those outputs in exact rational arithmetic. Finally it checks
 
     U_raw - a_new/8 - 3/8000000 < 629521681653/10^12.
 
@@ -20,7 +20,7 @@ In full mode, exit 0 and the last line `PASS: every sphere packing in R^4 has de
 | `--mode full` | nothing | base five stages about 31 minutes; identity checks add about 10 minutes | about 1 GB |
 | `--mode quick` | the 112 triangle subdivisions of stage 1; stage 2 then takes the committed stage 1 values | base stages about 9 minutes, plus identity checks | about 0.3 GB |
 
-`--workers 4` speeds up stages 1 and 5 and needs about 2 GB. The integrated independent comparison uses one worker. `--lean` reconstructs all three near-code and all three degree-16 surplus replay trees in a frozen source snapshot, compiles dependency-ready Lean modules in bounded batches of at most two, and parses all `Check.lean` axiom reports, rejecting missing reports or unapproved axioms (needs elan and the pinned Mathlib cache; see [lean/README.md](../lean/README.md)). `verify_lean.py --out NEW_DIRECTORY` runs that build and audit separately. [LEAN_STAGING.md](LEAN_STAGING.md) describes its complete-tree checks, storage requirements and validation limits.
+`--workers 4` speeds up stages 1 and 5 and needs about 2 GB. The integrated independent comparison uses one worker. The Lean formalization has a separate entry point and is deliberately not called by `verify_all.py`; it is not a prerequisite for this replay.
 
 **Quick mode does not freshly verify the global theorem.** Its final message and `SUMMARY.json` explicitly mark the omitted sign replay. Do not use `-O` or `PYTHONOPTIMIZE`; inherited checks use assertions.
 
@@ -38,7 +38,7 @@ Each stage folder has `run.py --out DIR`, writes `DIR/RESULT.json` and exits 0 o
 | 4 | [`stage4_graph_slack`](stage4_graph_slack) | The broad-graph capacity 1208 and the density saving 3/8000000 | Section 5 |
 | 5 | [`stage5_kernelbox`](stage5_kernelbox) | The far-pair lemma, the kernel-box bounds (every leaf of both split trees re-evaluated with Arb), and the final ledger | Section 6 |
 
-The passage from these finite statements to the density of an arbitrary packing is Theorem 2.1 of the paper. It is proved in Lean (`transfer` in [`../lean/D4Bound/Transfer.lean`](../lean/D4Bound/Transfer.lean)), and so are the scalar function's Fourier transform and signs.
+The passage from these finite statements to the density of an arbitrary packing is Theorem 2.1 of the paper. Its periodic-patch proof is written in `paper.tex` and `stage5_kernelbox/proofs/conditional_theorem.md`; it is part of the non-Lean proof and does not depend on Lean. Stage 1 independently checks the scalar signs and exact certificate data used by that theorem.
 
 ## Kernel identities
 
@@ -51,9 +51,9 @@ The independent code is separate arithmetic/assembly code, but its author inspec
 
 ## What is cited, proved in writing, or trusted
 
-[PROOF_DEPENDENCIES.md](../PROOF_DEPENDENCIES.md) maps the original fourteen obligations to their current status. `ConcreteMain.lean` fixes `V7.kernel` and retains seven certificate premises: cyclic sign, census floor, two kernel-box inequalities and three near-code bounds. The complete computer-assisted argument uses the programs, written proofs, and Lean together; the external checker executions are not automatically Lean proofs.
+[PROOF_DEPENDENCIES.md](../PROOF_DEPENDENCIES.md) records the separate Lean dependency map. For the non-Lean proof, the finite certificate obligations are discharged by the five stage drivers, the independent kernel reconstruction, and the exact kernel link; the arbitrary-packing transfer is the written theorem cited above.
 
-Schoenberg positivity on S² and S³ is now formalized for every degree. The graph proof uses a formal certificate for the sufficient bound `A(3,223/735) ≤ 8`, replacing its former reliance on the cited nine-point theorem. The classical references remain attribution and an alternative written route. Generic and concrete Gram, origin-credit, gauge, ball-count, tent and allocation components are described in [ENERGY_COMPONENTS.md](../lean/ENERGY_COMPONENTS.md). These component results do not discharge the seven remaining concrete premises.
+The graph proof uses an exact certificate for the sufficient bound `A(3,223/735) ≤ 8`, replacing its former reliance on the cited nine-point theorem. The classical references remain attribution and an alternative written route. The component identities and allocation arguments used by the non-Lean proof are documented in the stage proof files and checked by the stage drivers.
 
 The computational trust base includes Python integer/rational arithmetic, FLINT exact polynomials, Arb outward-rounded balls, and the C++20 subdivision engine compiled from source during each run. Symbolic adapters translate the documented nonpolynomial functions; they are not a formal semantics proof of the Python code. The stage-5 interval lower-envelope argument remains in [kernel_box_method.md](stage5_kernelbox/proofs/kernel_box_method.md).
 
@@ -65,6 +65,6 @@ python3 verify/kernel_independent/negative_controls.py --out /tmp/d4-independent
 python3 verify/stage5_kernelbox/negative_controls.py --work /tmp/d4-box-controls
 ```
 
-The kernel-link controls run inside its normal command. The independent controls reject incomplete coverage, perturbed coefficients and malformed exact inputs. The driver tests reject fractional/float counts, duplicate or missing groups, inexact floors, unapproved or missing Lean axiom reports, and optimized Python. Failure controls test rejection behavior; they do not establish a density bound.
+The kernel-link controls run inside its normal command. The independent controls reject incomplete coverage, perturbed coefficients and malformed exact inputs. The driver tests reject fractional/float counts, duplicate or missing groups, stale manifests, inexact floors, and optimized Python. Failure controls test rejection behavior; they do not establish a density bound.
 
 [The release review](../REVIEW.md) distinguishes the earlier passing certificate replay/build from the current expanded Lean project, whose final clean build and full spherical sign-tree replay in Lean remain pending. It records actual commands, results and remaining trust assumptions. Hash manifests identify exported artifacts; hashes alone are not mathematical verification.

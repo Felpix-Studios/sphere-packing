@@ -21605,7 +21605,7 @@
   },
   "target625/geometry/accepted_stratified_N24_R1_degree8_exact_eps6/VERIFIED.json": {
     "bytes": 5566,
-    "sha256": "cc4075bb503caf42c1ed5501afdadc6e4f4e9c1c8c5af33abdc7cb3cc9ff0510"
+    "sha256": "c3dfd6ddbc222e5f6f19540786d29813427e9ae8f382b1bc2a175ba0addb25f8"
   },
   "target625/geometry/accepted_stratified_N24_R1_degree8_exact_eps6/certificate.json": {
     "bytes": 16921,
@@ -21765,7 +21765,7 @@
   },
   "target625/geometry/accepted_stratified_N25_R4_degree8_exact_eps4/VERIFIED.json": {
     "bytes": 5537,
-    "sha256": "7a2c5bbba69d43e8c32f6ee5929215f4a6605e13911c1342ca8a0c229e9f601b"
+    "sha256": "ae497dbf1e644a2ad36c2b0384757ceddb0e436c45231a6fcf2efacb16d12ad5"
   },
   "target625/geometry/accepted_stratified_N25_R4_degree8_exact_eps4/certificate.json": {
     "bytes": 16929,
@@ -22160,8 +22160,8 @@
     "sha256": "988f4258fd15562ec60faff9410a9b7b41c2a9648fd128e6a5a7dff512a0dd4f"
   },
   "target625/geometry/fixed_cardinality_spherical_algebra.py": {
-    "bytes": 13676,
-    "sha256": "2d11a2ce3853dcbcbd370947b20a4d341e4f677fe602245b6bc5abf42e86f1a1"
+    "bytes": 13674,
+    "sha256": "66174183e7ef69ebf496035e05b9b16e1875faefdfe45cec25566efa3997d5ed"
   },
   "target625/geometry/fresh_s0515_degree12/PRICING.json": {
     "bytes": 1184,
@@ -23281,7 +23281,7 @@
   },
   "target625/origin_completion/FINAL_ORIGIN_REGISTRY.json": {
     "bytes": 2172,
-    "sha256": "a2279289fa24526ab9783465b750c9ea0ae71051664c4ed649862977dbd037e0"
+    "sha256": "3675990332310d5853e54e17d99d12d3fd2a4bb0f66058d1fd2f1c83ca4f7278"
   },
   "target625/origin_completion/FIXED_ORIGIN_COMPONENT_CEILING_VERIFIED.json": {
     "bytes": 11596,
@@ -23973,7 +23973,7 @@
   },
   "target625/origin_completion/compose_radial_stratified_origin_credit.py": {
     "bytes": 17807,
-    "sha256": "60c4412eedb14cf80bab2d25b1a8fde69bec4a0d24d16cd9e39703f38e71a4b1"
+    "sha256": "3888e1a3aea4a8d76360b64b3850e76c9edf9e3172738ac3c9877e486bab4bcb"
   },
   "target625/origin_completion/compose_uniform_joint_count_global_credit.py": {
     "bytes": 13128,

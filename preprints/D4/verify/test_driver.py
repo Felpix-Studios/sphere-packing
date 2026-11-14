@@ -1,5 +1,6 @@
 """Fail-closed regression checks for the publication driver (no certificate rerun)."""
 import copy
+import hashlib
 import json
 import importlib.util
 import shutil
@@ -59,6 +60,28 @@ class DriverChecks(unittest.TestCase):
             self.assertNotEqual(run.returncode, 0)
             self.assertIn("disables assertions", run.stderr)
             self.assertFalse(out.exists())
+
+    def test_nonlean_driver_has_no_lean_runtime_dependency(self):
+        source = Path(driver.__file__).read_text()
+        self.assertNotIn("check_lean_inputs.py", source)
+        self.assertNotIn("gen_scalar.py", source)
+        self.assertNotIn("args.lean", source)
+
+    def test_export_manifests_are_current(self):
+        self.assertGreater(driver.check_export_manifests(), 200)
+        root = driver.D4 / "verify"
+        for manifest_path in root.rglob("*MANIFEST.json"):
+            manifest = json.loads(manifest_path.read_text())
+            rows = manifest.get("files", [])
+            if isinstance(rows, dict):
+                rows = [dict(value, path=path) for path, value in rows.items()]
+            for row in rows:
+                path = manifest_path.parent / row["path"]
+                with self.subTest(manifest=str(manifest_path), path=str(path)):
+                    self.assertTrue(path.is_file())
+                    data = path.read_bytes()
+                    self.assertEqual(len(data), row["bytes"])
+                    self.assertEqual(hashlib.sha256(data).hexdigest(), row["sha256"])
 
     def test_stage1_metadata_is_not_code(self):
         with tempfile.TemporaryDirectory() as tmp:
