@@ -20,7 +20,7 @@ In full mode, exit 0 and the last line `PASS: every sphere packing in R^4 has de
 | `--mode full` | nothing | base five stages about 31 minutes; identity checks add about 10 minutes | about 1 GB |
 | `--mode quick` | the 112 triangle subdivisions of stage 1; stage 2 then takes the committed stage 1 values | base stages about 9 minutes, plus identity checks | about 0.3 GB |
 
-`--workers 4` speeds up stages 1 and 5 and needs about 2 GB. The integrated independent comparison uses one worker. The Lean formalization is unreleased and is not a prerequisite for this replay; see [`../FORMALIZATION_STATUS.md`](../FORMALIZATION_STATUS.md).
+`--workers 4` speeds up stages 1 and 5 and needs about 2 GB. The integrated independent comparison uses one worker. The separate Lean formalization in `../lean` is not a prerequisite for this replay; see [`../FORMALIZATION_STATUS.md`](../FORMALIZATION_STATUS.md).
 
 **Quick mode does not freshly verify the global theorem.** Its final message and `SUMMARY.json` explicitly mark the omitted sign replay. Do not use `-O` or `PYTHONOPTIMIZE`; inherited checks use assertions.
 

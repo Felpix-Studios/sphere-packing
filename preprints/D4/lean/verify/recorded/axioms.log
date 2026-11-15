@@ -1,0 +1,321 @@
+theorem D4Bound.d4_density_bound_concrete : ∀ (P : Set D4Bound.E4),
+  D4Bound.IsUnitPacking P → D4Bound.upperDensity P < ENNReal.ofReal (629521681653 / 1000000000000) :=
+fun P hP =>
+  D4Bound.d4_density_bound D4Bound.V7.kernel D4Bound.V7.kernel_supported D4Bound.V7.kernel_pair
+    D4Bound.V7.cyclicSign_kernel D4Bound.V7.kernel_raw D4Bound.V7.censusFloor_kernel D4Bound.KBN.kernel_box_1_native
+    D4Bound.KBN.kernel_box_5_native D4Bound.SphericalConcrete.C24.code_bound_unconditional
+    D4Bound.SphericalConcrete.C25.code_bound_unconditional D4Bound.SphericalConcrete.C26.code_bound_unconditional P hP
+'D4Bound.d4_density_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.d4_density_bound_concrete' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound,
+ D4Bound.KBN.check1_true._native.native_decide.ax_1_1,
+ D4Bound.KBN.check5_true._native.native_decide.ax_1_1,
+ D4Bound.KBN.gaugeAllOK_true._native.native_decide.ax_1_1,
+ D4Bound.KBN.scalarCheck_true._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck000._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck001._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck002._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck003._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck004._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck005._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck006._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck011._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck012._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck013._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck014._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck015._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck016._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck022._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck023._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck024._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck025._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck026._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck033._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck034._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck035._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck036._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck044._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck045._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck046._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck055._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck056._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck066._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck111._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck112._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck113._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck114._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck115._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck116._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck122._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck123._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck124._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck125._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck126._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck133._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck134._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck135._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck136._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck144._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck145._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck146._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck155._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck156._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck166._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck222._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck223._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck224._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck225._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck226._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck233._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck234._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck235._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck236._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck244._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck245._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck246._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck255._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck256._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck266._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck333._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck334._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck335._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck336._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck344._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck345._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck346._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck355._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck356._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck366._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck444._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck445._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck446._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck455._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck456._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck466._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck555._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck556._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck566._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck666._native.native_decide.ax_1_1,
+ D4Bound.V7.xoCheck06._native.native_decide.ax_1_1,
+ D4Bound.V7.xoCheck11._native.native_decide.ax_1_1,
+ D4Bound.V7.xoCheck12._native.native_decide.ax_1_1,
+ D4Bound.V7.xoCheck13._native.native_decide.ax_1_1,
+ D4Bound.V7.xoCheck14._native.native_decide.ax_1_1,
+ D4Bound.V7.xoCheck15._native.native_decide.ax_1_1,
+ D4Bound.V7.xoCheck16._native.native_decide.ax_1_1,
+ D4Bound.V7.xoCheck22._native.native_decide.ax_1_1,
+ D4Bound.V7.xoCheck26._native.native_decide.ax_1_1,
+ D4Bound.V7.xoCheck34._native.native_decide.ax_1_1,
+ D4Bound.V7.xoCheck36._native.native_decide.ax_1_1,
+ D4Bound.V7.xoCheck44._native.native_decide.ax_1_1,
+ D4Bound.V7.xoCheck45._native.native_decide.ax_1_1,
+ D4Bound.V7.xoCheck46._native.native_decide.ax_1_1,
+ D4Bound.V7.xoCheck66._native.native_decide.ax_1_1,
+ D4Bound.V7.xs55HH._native.native_decide.ax_1_1,
+ D4Bound.V7.xs55HL._native.native_decide.ax_1_1,
+ D4Bound.V7.xs55LH._native.native_decide.ax_1_1,
+ D4Bound.V7.xs55LL._native.native_decide.ax_1_1,
+ D4Bound.V7.xwCheck00._native.native_decide.ax_1_1,
+ D4Bound.V7.xwCheck01._native.native_decide.ax_1_1,
+ D4Bound.V7.xwCheck02._native.native_decide.ax_1_1,
+ D4Bound.V7.xwCheck03._native.native_decide.ax_1_1,
+ D4Bound.V7.xwCheck04._native.native_decide.ax_1_1,
+ D4Bound.V7.xwCheck05._native.native_decide.ax_1_1,
+ D4Bound.V7.xwCheck23._native.native_decide.ax_1_1,
+ D4Bound.V7.xwCheck24._native.native_decide.ax_1_1,
+ D4Bound.V7.xwCheck25._native.native_decide.ax_1_1,
+ D4Bound.V7.xwCheck33._native.native_decide.ax_1_1,
+ D4Bound.V7.xwCheck35._native.native_decide.ax_1_1,
+ D4Bound.V7.xwCheck56._native.native_decide.ax_1_1,
+ D4Bound.SphericalSign.Bernstein.Native.check24._native.native_decide.ax_1,
+ D4Bound.SphericalSign.Bernstein.Native.check25._native.native_decide.ax_1,
+ D4Bound.SphericalSign.Bernstein.Native.check26._native.native_decide.ax_1,
+ D4Bound.SphericalSurplusSign.Bernstein16.Native.check0._native.native_decide.ax_1,
+ D4Bound.SphericalSurplusSign.Bernstein16.Native.check1._native.native_decide.ax_1,
+ D4Bound.SphericalSurplusSign.Bernstein16.Native.check2._native.native_decide.ax_1]
+'D4Bound.d4_patch_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.energy_floor' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.tripleSum_Kalloc' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.far_pair_nbhd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.far_pair_sum_max' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.quartic_offdiag_ge' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.finite_local_energy' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.groups_ge' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.final_arith' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.transfer' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.transfer_quarter' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.coeff_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.G_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.G_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.F_neg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.f_nonpos' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.f_integrable' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.fourier_integrable' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.integral_f' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.fourierIdentity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.fourier_polyGauss' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.shell_inner_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.two_shell_inner_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.annulus_inner_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.card_le_of_cos_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.broad_degree_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.broad_vertices_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.broadEdges_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.graphSlack_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.lat_key' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.latitude_count' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.countWithin_le_of_code' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.countDomain_of_admissible' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.groupKeys_nodup' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.groupKeys_complete' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.group_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.schoenberg_S3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.Components.gram_energy_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.Components.origin_credit_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.Components.gram_origin_credit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.Components.gram_energy_ge_credit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.Components.usage_energy_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.Components.usage_energy_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.Components.gauge_energy_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.Components.gauge_pair_term' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.Components.pair_count_gauge_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.Components.card_le_of_ball' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.Components.blichfeldt_translate' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.Components.pstar_capacity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.Components.step_capacity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.Components.pstar_allocation_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.Components.step_allocation_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.annular_151_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.LatitudeCheck.latitude15' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.LatitudeCheck.latitude24' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.schoenberg_S2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.projected_eight_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.proj_scalar_exact' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.broadEdges_le_projected' depends on axioms: [propext, Classical.choice, Quot.sound]
+'D4Bound.graphSlack_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+D4_ALL_THEOREMS_AXIOM_AUDIT_PASS 12900 NATIVE_AXIOMS 125 [D4Bound.V7.fullCheck014._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck033._native.native_decide.ax_1_1,
+ D4Bound.V7.xwCheck24._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck122._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck166._native.native_decide.ax_1_1,
+ D4Bound.V7.xs55LH._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck233._native.native_decide.ax_1_1,
+ D4Bound.V7.xoCheck66._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck333._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck035._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck012._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck223._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck116._native.native_decide.ax_1_1,
+ D4Bound.V7.xs55HH._native.native_decide.ax_1_1,
+ D4Bound.V7.xwCheck05._native.native_decide.ax_1_1,
+ D4Bound.V7.xwCheck04._native.native_decide.ax_1_1,
+ D4Bound.V7.xoCheck44._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck024._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck136._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck135._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck133._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck112._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck002._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck356._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck245._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck555._native.native_decide.ax_1_1,
+ D4Bound.V7.xwCheck03._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck336._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck345._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck045._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck224._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck256._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck445._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck000._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck456._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck234._native.native_decide.ax_1_1,
+ D4Bound.SphericalSign.Bernstein.Native.check24._native.native_decide.ax_1,
+ D4Bound.V7.fullCheck036._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck046._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck146._native.native_decide.ax_1_1,
+ D4Bound.V7.xoCheck12._native.native_decide.ax_1_1,
+ D4Bound.KBN.check5_true._native.native_decide.ax_1_1,
+ D4Bound.V7.xoCheck14._native.native_decide.ax_1_1,
+ D4Bound.V7.xs55HL._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck022._native.native_decide.ax_1_1,
+ D4Bound.KBN.gaugeAllOK_true._native.native_decide.ax_1_1,
+ D4Bound.SphericalSign.Bernstein.Native.check25._native.native_decide.ax_1,
+ D4Bound.V7.fullCheck255._native.native_decide.ax_1_1,
+ D4Bound.SphericalSurplusSign.Bernstein16.Native.check0._native.native_decide.ax_1,
+ D4Bound.V7.xwCheck25._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck016._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck666._native.native_decide.ax_1_1,
+ D4Bound.SphericalSign.Bernstein.Native.check26._native.native_decide.ax_1,
+ D4Bound.V7.fullCheck446._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck344._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck556._native.native_decide.ax_1_1,
+ D4Bound.V7.xoCheck15._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck111._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck334._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck005._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck335._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck015._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck066._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck003._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck034._native.native_decide.ax_1_1,
+ D4Bound.V7.xoCheck22._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck124._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck013._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck123._native.native_decide.ax_1_1,
+ D4Bound.V7.xwCheck02._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck026._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck246._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck225._native.native_decide.ax_1_1,
+ D4Bound.KBN.check1_true._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck244._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck222._native.native_decide.ax_1_1,
+ D4Bound.V7.xoCheck11._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck355._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck134._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck236._native.native_decide.ax_1_1,
+ D4Bound.V7.xoCheck16._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck114._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck011._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck023._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck055._native.native_decide.ax_1_1,
+ D4Bound.V7.xoCheck13._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck156._native.native_decide.ax_1_1,
+ D4Bound.V7.xoCheck06._native.native_decide.ax_1_1,
+ D4Bound.KBN.scalarCheck_true._native.native_decide.ax_1_1,
+ D4Bound.V7.xoCheck26._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck145._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck115._native.native_decide.ax_1_1,
+ D4Bound.V7.xoCheck34._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck366._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck155._native.native_decide.ax_1_1,
+ D4Bound.V7.xwCheck35._native.native_decide.ax_1_1,
+ D4Bound.V7.xwCheck56._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck006._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck126._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck235._native.native_decide.ax_1_1,
+ D4Bound.V7.xoCheck45._native.native_decide.ax_1_1,
+ D4Bound.V7.xwCheck23._native.native_decide.ax_1_1,
+ D4Bound.V7.xoCheck36._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck004._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck466._native.native_decide.ax_1_1,
+ D4Bound.V7.xoCheck46._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck346._native.native_decide.ax_1_1,
+ D4Bound.V7.xwCheck33._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck266._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck444._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck455._native.native_decide.ax_1_1,
+ D4Bound.V7.xwCheck01._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck113._native.native_decide.ax_1_1,
+ D4Bound.V7.xs55LL._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck001._native.native_decide.ax_1_1,
+ D4Bound.V7.xwCheck00._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck056._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck144._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck566._native.native_decide.ax_1_1,
+ D4Bound.SphericalSurplusSign.Bernstein16.Native.check2._native.native_decide.ax_1,
+ D4Bound.V7.fullCheck025._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck226._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck044._native.native_decide.ax_1_1,
+ D4Bound.V7.fullCheck125._native.native_decide.ax_1_1,
+ D4Bound.SphericalSurplusSign.Bernstein16.Native.check1._native.native_decide.ax_1]

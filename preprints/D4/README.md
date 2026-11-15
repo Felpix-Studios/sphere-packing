@@ -7,8 +7,9 @@ The result is **upper density < 0.629521681653 for every packing of congruent ba
 - [paper.pdf](paper.pdf) and [paper.tex](paper.tex): the preprint and editable source.
 - [data/](data/README.md): exact scalar/kernel coefficients, 124 census floors, and both kernel-box certificates.
 - [verify/](verify/README.md): all verification code and inherited certificate dependencies, with two additional kernel cross-checks.
-- [FORMALIZATION_STATUS.md](FORMALIZATION_STATUS.md): the status of the unreleased Lean work.
-- [REVIEW.md](REVIEW.md): the release replay and trust review for the available proof.
+- [lean/](lean/README.md): a separate Lean 4 formalization of the complete bound, with its own build and axiom audit.
+- [FORMALIZATION_STATUS.md](FORMALIZATION_STATUS.md): what the Lean proof states, its axioms and the recorded clean build.
+- [REVIEW.md](REVIEW.md): the release replay and trust review for the non-Lean proof.
 - [PROOF_DEPENDENCIES.md](PROOF_DEPENDENCIES.md): the mathematical dependency chain and the precise boundary between machine checks, written arguments, and cited theorems.
 
 No executable certificate input comes from outside this folder. Historical absolute filenames inside some data files are provenance strings. Standard software dependencies are installed separately.
@@ -26,8 +27,18 @@ Use a new output directory. Do not use `python -O` or `PYTHONOPTIMIZE`: inherite
 
 The command above is the complete computer-assisted proof replay. It reads only
 `data/` and `verify/` in this folder, plus the listed Python, FLINT, Arb and C++
-dependencies. The separate Lean formalization is unreleased; see
-[FORMALIZATION_STATUS.md](FORMALIZATION_STATUS.md).
+dependencies. It does not run Lean.
+
+The Lean formalization in `lean/` proves the same bound on its own and is
+built separately:
+
+```sh
+cd lean
+lake exe cache get
+python3 verify/verify_lean.py --out /tmp/d4-lean-check --workers 4 --require-unconditional
+```
+
+See [FORMALIZATION_STATUS.md](FORMALIZATION_STATUS.md).
 
 To rebuild the preprint:
 

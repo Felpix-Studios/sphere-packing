@@ -4,8 +4,9 @@
 
 The published result is the non-Lean computer-assisted proof described in
 `paper.tex`, using the exact inputs in `data/` and the five replay stages in
-`verify/`. The Lean formalization is unreleased and is not needed for this
-claim; see [`FORMALIZATION_STATUS.md`](FORMALIZATION_STATUS.md).
+`verify/`. This review covers that proof only. The separate
+Lean formalization in `lean/` is not needed for this claim and has its own
+recorded build; see [`FORMALIZATION_STATUS.md`](FORMALIZATION_STATUS.md).
 
 ## Reproduction commands
 

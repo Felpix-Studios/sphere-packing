@@ -1,0 +1,10 @@
+import D4Bound.V7CyclicNativeUnits
+
+/-! Native check of the full cyclic case (5,5,6). -/
+namespace D4Bound.V7
+open CyclicNative
+
+theorem fullCheck556 : fullCheckG capUse (1/2^0) caseFuel 5 5 6 = true := by
+  native_decide
+
+end D4Bound.V7

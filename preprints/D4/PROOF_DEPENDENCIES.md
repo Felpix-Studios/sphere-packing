@@ -3,7 +3,7 @@
 This file audits the available proof of upper density `0.629521681653` for
 every packing of congruent balls in `R^4`. It is not a proof that the D4
 lattice is optimal. The published proof is self-contained in `paper.tex`,
-`data/`, and `verify/`; the separate Lean formalization is unreleased and is
+`data/`, and `verify/`; the separate Lean formalization in `lean/` is
 not an input.
 
 ## Mathematical chain
@@ -71,6 +71,7 @@ identity, not mathematical correctness.
 
 ## Formalization boundary
 
-The Lean formalization is unreleased work and is not shipped with this package.
-See [`FORMALIZATION_STATUS.md`](FORMALIZATION_STATUS.md). No Lean build,
-Lean cache, or Lean verifier is required for the proof described here.
+The dependency chain above is the non-Lean proof. No Lean build, Lean cache,
+or Lean verifier is required for it. A separate Lean formalization of the
+whole bound is in `lean/`; it does not use the stage programs or their
+results. See [`FORMALIZATION_STATUS.md`](FORMALIZATION_STATUS.md).

@@ -19,7 +19,9 @@ python3 -m pip install -r verify/requirements.txt
 python3 verify/verify_all.py --out /tmp/d4-full-check --mode full --workers 2
 ```
 
-The full run checks the scalar and kernel signs, 112 cyclic branches, the 165,503-vector census, 124 refined floors, both kernel-box trees, the independent reconstruction, and the final exact inequality. Quick mode is only a development check and is not a full global replay. The current Lean sources are retained separately as work in progress and are not required for the computer-assisted proof described here.
+The full run checks the scalar and kernel signs, 112 cyclic branches, the 165,503-vector census, 124 refined floors, both kernel-box trees, the independent reconstruction, and the final exact inequality. Quick mode is only a development check and is not a full global replay.
+
+The folder also contains a separate Lean 4 formalization of the complete bound in `preprints/D4/lean`. Its main theorem takes only the packing as input, with no `sorry` and no added axiom; 125 finite checks use `native_decide`. The two proofs share no code or results. See [`preprints/D4/FORMALIZATION_STATUS.md`](preprints/D4/FORMALIZATION_STATUS.md).
 
 ## Bounds
 
