@@ -13,6 +13,7 @@
 
 # LaTeX intermediates; publish the paper source alongside the PDF
 # Scope .log/.out to the paper: verifier evidence may use these extensions.
+*.tex
 *.aux
 /preprints/*/paper.log
 /preprints/*/paper.out
